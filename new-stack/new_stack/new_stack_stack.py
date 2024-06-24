@@ -1,6 +1,5 @@
 from aws_cdk import (
     CfnOutput,
-    RemovalPolicy,
     Stack,
     aws_ec2 as ec2,
     aws_s3_assets as s3
@@ -9,11 +8,9 @@ from constructs import Construct
 
 class NewStackStack(Stack):
 
-    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, construct_id: str, my_vpc: ec2.Vpc, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-
-        my_vpc = ec2.Vpc(self, 'MyVpc', nat_gateways=0)
         web_server = ec2.Instance(self, 'WebServer',
                                   machine_image=ec2.MachineImage.latest_amazon_linux2(),
                                   instance_type=ec2.InstanceType.of(instance_class=ec2.InstanceClass.T3,
