@@ -54,3 +54,5 @@ class NewStackStack(NestedStack):
                                 include_resource_types=['AWS::EC2::Instance'])
         Tags.of(web_server).add('subcategory','side',
                                 exclude_resource_types=['AWS::EC2::Instance'])
+
+        Tags.of(web_server.role).remove('subcategory')
