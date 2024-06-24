@@ -9,9 +9,11 @@ from new_stack.network_stack import NetworkStack
 
 app = cdk.App()
 
-network_stack = NetworkStack(app, 'NetworkStack')
+root_stack = cdk.Stack(app, 'RootStack')
 
-NewStackStack(app, "NewStackStack", my_vpc=network_stack.vpc)
+network_stack = NetworkStack(root_stack, 'NetworkStack')
+
+NewStackStack(root_stack, "NewStackStack", my_vpc=network_stack.vpc)
 
 
 app.synth()

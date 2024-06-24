@@ -1,12 +1,12 @@
 from aws_cdk import (
     CfnOutput,
-    Stack,
+    NestedStack,
     aws_ec2 as ec2,
     aws_s3_assets as s3
 )
 from constructs import Construct
 
-class NewStackStack(Stack):
+class NewStackStack(NestedStack):
 
     def __init__(self, scope: Construct, construct_id: str, my_vpc: ec2.Vpc, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
