@@ -19,6 +19,7 @@ application_stack = NewStackStack(root_stack, "NewStackStack", my_vpc=network_st
 # Stack-Level tagging
 
 cdk.Tags.of(network_stack).add('category', 'network')
-cdk.Tags.of(application_stack).add('category', 'application')
+cdk.Tags.of(application_stack).add('category', 'application',
+                                   priority=200)
 
 app.synth()
