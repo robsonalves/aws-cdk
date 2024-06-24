@@ -13,7 +13,12 @@ root_stack = cdk.Stack(app, 'RootStack')
 
 network_stack = NetworkStack(root_stack, 'NetworkStack')
 
-NewStackStack(root_stack, "NewStackStack", my_vpc=network_stack.vpc)
+application_stack = NewStackStack(root_stack, "NewStackStack", my_vpc=network_stack.vpc)
 
+
+# Stack-Level tagging
+
+cdk.Tags.of(network_stack).add('category', 'network')
+cdk.Tags.of(application_stack).add('category', 'application')
 
 app.synth()

@@ -1,6 +1,7 @@
 from aws_cdk import (
     CfnOutput,
     NestedStack,
+    Tags,
     aws_ec2 as ec2,
     aws_s3_assets as s3
 )
@@ -46,3 +47,10 @@ class NewStackStack(NestedStack):
 
         web_page_asset = s3.Asset(self, 'WebImageAsset',
                             path='web_pages/image.png')
+
+        # Tagging Constructs
+        Tags.of(web_server).add('category','web server')
+        Tags.of(web_server).add('subcategory','primary',
+                                include_resource_types=['AWS::EC2::Instance'])
+        Tags.of(web_server).add('subcategory','side',
+                                exclude_resource_types=['AWS::EC2::Instance'])
