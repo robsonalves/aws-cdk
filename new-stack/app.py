@@ -5,7 +5,7 @@ import aws_cdk as cdk
 
 from new_stack.new_stack_stack import NewStackStack
 from new_stack.network_stack import NetworkStack
-from new_stack.aspects import MyFirstAspect
+from new_stack.aspects import EC2InstanceTypeChecker
 
 
 app = cdk.App()
@@ -18,7 +18,7 @@ application_stack = NewStackStack(root_stack, "NewStackStack", my_vpc=network_st
 
 # Aspects
 
-cdk.Aspects.of(root_stack).add(MyFirstAspect())
+cdk.Aspects.of(root_stack).add(EC2InstanceTypeChecker())
 
 
 # Stack-Level tagging
