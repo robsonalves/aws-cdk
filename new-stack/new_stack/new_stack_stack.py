@@ -29,7 +29,7 @@ class NewStackStack(NestedStack):
                                  'rm -rf /usr/share/nginx/html/*')
 
         web_server.connections.allow_from_any_ipv4(ec2.Port.tcp(80), 'Allow HTTP access from the Internet')
-        web_server.connections.allow_from_any_ipv4(ec2.Port.tcp(22), 'Allow SSH access from the Internet')
+        # web_server.connections.allow_from_any_ipv4(ec2.Port.tcp(22), 'Allow SSH access from the Internet')
 
         CfnOutput(self, 'WebServerDnsName',
                   value=web_server.instance_public_dns_name)
