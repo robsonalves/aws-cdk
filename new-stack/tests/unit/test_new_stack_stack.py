@@ -39,14 +39,14 @@ def test_application_stack_web_server():
 def test_web_server_security_group():
 
     app = core.App()
-    
+
     root_stack = core.Stack(app, 'RootStack')
 
     network_stack = NetworkStack(root_stack, 'NetworkStack')
     application_stack = NewStackStack(root_stack, "NewStackStack", my_vpc=network_stack.vpc)
 
     template = assertions.Template.from_stack(application_stack)
-    
+
     template.has_resource_properties('AWS::EC2::SecurityGroup', {
         'SecurityGroupIngress': assertions.Match.array_equals([
             assertions.Match.object_equals({
