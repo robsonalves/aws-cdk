@@ -18,6 +18,7 @@ class NewStackStack(NestedStack):
                                                                     instance_size=ec2.InstanceSize.MICRO),
                                   vpc=my_vpc,
                                   vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC),
+                                  key_name='my-key-pair',
                                   user_data_causes_replacement=True)
 
         #Attaching an Elastic IP to keep the DNS name on Updates
