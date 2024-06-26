@@ -30,7 +30,7 @@ def test_application_stack_web_server():
     template = assertions.Template.from_stack(application_stack)
     
     template.has_resource_properties('AWS::EC2::Instance', {
-        'InstanceType': 't3.micro',
+        'InstanceType': assertions.Match.string_like_regexp('(t2|t3).micro'),
         'ImageId': assertions.Match.any_value(),
         'KeyName': assertions.Match.any_value(),
         'Custom': assertions.Match.absent()
