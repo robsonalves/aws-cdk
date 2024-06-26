@@ -2,14 +2,16 @@ import aws_cdk as core
 import aws_cdk.assertions as assertions
 
 from new_stack.new_stack_stack import NewStackStack
+from new_stack.network_stack import NetworkStack
 
-# example tests. To run these tests, uncomment this file along with the example
-# resource in new_stack/new_stack_stack.py
-def test_sqs_queue_created():
+def test_network_stack_resource_counts():
     app = core.App()
-    stack = NewStackStack(app, "new-stack")
-    template = assertions.Template.from_stack(stack)
+    
+    root_stack = core.Stack(app, 'RootStack')
 
-#     template.has_resource_properties("AWS::SQS::Queue", {
-#         "VisibilityTimeout": 300
-#     })
+    network_stack = NetworkStack(root_stack, 'NetworkStack')
+
+    template = assertions.Template.from_stack(network_stack)
+    
+    template.resource_count_is('AWS::EC2::VPC', 1)
+    template.resource_count_is('AWS::EC2::NatGateway', 0)
