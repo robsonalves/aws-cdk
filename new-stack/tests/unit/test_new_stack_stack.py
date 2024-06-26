@@ -35,3 +35,25 @@ def test_application_stack_web_server():
         'KeyName': assertions.Match.any_value(),
         'Custom': assertions.Match.absent()
     })
+
+def test_web_server_security_group():
+
+    app = core.App()
+    
+    root_stack = core.Stack(app, 'RootStack')
+
+    network_stack = NetworkStack(root_stack, 'NetworkStack')
+    application_stack = NewStackStack(root_stack, "NewStackStack", my_vpc=network_stack.vpc)
+
+    template = assertions.Template.from_stack(application_stack)
+    
+    template.has_resource_properties('AWS::EC2::SecurityGroup', {
+        'SecurityGroupIngress': assertions.Match.array_equals([
+            assertions.Match.object_like({
+                'IpProtocol': 'tcp',
+                'FromPort': 80,
+                'ToPort': 80,
+                'CidrIp': '0.0.0.0/0'
+            })
+        ])
+    })
